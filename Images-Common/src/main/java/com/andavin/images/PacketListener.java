@@ -27,6 +27,7 @@ import com.andavin.images.image.CustomImage;
 import com.andavin.images.image.CustomImageSection;
 import com.andavin.util.Scheduler;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -130,9 +131,10 @@ public abstract class PacketListener<T, U> implements Versioned {
      * @param entityId The entity the player interacted with.
      * @param action The action that the player used to interact.
      * @param hand The hand the player used if applicable.
+     * @param vector The relative hit vector from the packet.
      * @param listener The listener to call.
      */
-    public static void call(Player player, int entityId, InteractType action, Hand hand, ImageListener listener) {
+    public static void call(Player player, int entityId, InteractType action, Hand hand, Vector vector, ImageListener listener) {
 
         if (entityId < DEFAULT_STARTING_ID) {
             return;
@@ -148,7 +150,13 @@ public abstract class PacketListener<T, U> implements Versioned {
 
                     CustomImageSection section = image.getSection(entityId);
                     if (section != null) {
-                        listener.click(player, image, section, action, hand);
+                        int pixelX = -1;
+                        int pixelY = -1;
+                        if (vector != null) {
+                            pixelX = section.getXIndex() * 128 + (int) Math.floor(vector.getX() * 128);
+                            pixelY = section.getYIndex() * 128 + (int) Math.floor((1.0 - vector.getY()) * 128);
+                        }
+                        listener.click(player, image, section, action, hand, pixelX, pixelY);
                         return;
                     }
                 }
@@ -174,8 +182,10 @@ public abstract class PacketListener<T, U> implements Versioned {
          * @param section The specific section that the player interacted with.
          * @param action The action that the player took when interacted.
          * @param hand The hand the player used to interact with.
+         * @param x The X pixel of the interaction on the full image or {@code -1} if unknown.
+         * @param y The Y pixel of the interaction on the full image or {@code -1} if unknown.
          */
         void click(Player player, CustomImage image, CustomImageSection section,
-                   InteractType action, Hand hand);
+                   InteractType action, Hand hand, int x, int y);
     }
 }

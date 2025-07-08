@@ -57,7 +57,7 @@ class PacketListener extends com.andavin.images.PacketListener<PacketPlayInUseEn
         call(player, getFieldValue(ENTITY_ID, packet),
                 packet.a() == EnumEntityUseAction.ATTACK ?
                         InteractType.LEFT_CLICK : InteractType.RIGHT_CLICK,
-                Hand.MAIN_HAND, listener);
+                Hand.MAIN_HAND, null, listener);
     }
 
     @Override

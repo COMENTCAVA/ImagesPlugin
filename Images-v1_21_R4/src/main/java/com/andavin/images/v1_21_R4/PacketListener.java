@@ -47,6 +47,7 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.phys.Vec3;
 import org.bukkit.craftbukkit.v1_21_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -91,18 +92,20 @@ class PacketListener extends com.andavin.images.PacketListener<ServerboundIntera
             @Override
             public void onInteraction(InteractionHand hand) {
                 call(player, entityId, InteractType.RIGHT_CLICK,
-                        hand == InteractionHand.MAIN_HAND ? Hand.MAIN_HAND : Hand.OFF_HAND, listener);
+                        hand == InteractionHand.MAIN_HAND ? Hand.MAIN_HAND : Hand.OFF_HAND,
+                        null, listener);
             }
 
             @Override
             public void onInteraction(InteractionHand hand, Vec3 vec3) {
                 call(player, entityId, InteractType.RIGHT_CLICK,
-                        hand == InteractionHand.MAIN_HAND ? Hand.MAIN_HAND : Hand.OFF_HAND, listener);
+                        hand == InteractionHand.MAIN_HAND ? Hand.MAIN_HAND : Hand.OFF_HAND,
+                        new Vector(vec3.x, vec3.y, vec3.z), listener);
             }
 
             @Override
             public void onAttack() {
-                call(player, entityId, InteractType.LEFT_CLICK, Hand.MAIN_HAND, listener);
+                call(player, entityId, InteractType.LEFT_CLICK, Hand.MAIN_HAND, null, listener);
             }
         });
     }

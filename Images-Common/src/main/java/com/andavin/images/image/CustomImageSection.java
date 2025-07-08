@@ -59,17 +59,30 @@ public class CustomImageSection implements Serializable {
     private final BlockFace direction;
     private final int rotation;
 
+    /**
+     * The X index of this section in the parent image.
+     */
+    private final int xIndex;
+
+    /**
+     * The Y index of this section in the parent image.
+     */
+    private final int yIndex;
+
     private transient Location location;
     private transient int frameId, mapId; // Should not be
     transient Set<UUID> shown = new HashSet<>();
 
-    CustomImageSection(Location location, BlockFace direction, int rotation, BufferedImage image) {
+    CustomImageSection(Location location, BlockFace direction, int rotation,
+                       BufferedImage image, int xIndex, int yIndex) {
         this.rotation = rotation;
         this.frameId = ID_COUNTER.getAndIncrement();
         this.mapId = MapHelper.getNextMapId(location.getWorld());
         this.location = location;
         this.direction = direction;
         this.pixels = MapHelper.getPixels(image);
+        this.xIndex = xIndex;
+        this.yIndex = yIndex;
     }
 
     /**
@@ -118,6 +131,24 @@ public class CustomImageSection implements Serializable {
      */
     public int getRotation() {
         return rotation;
+    }
+
+    /**
+     * Get the X index for this section within the parent image.
+     *
+     * @return The X index.
+     */
+    public int getXIndex() {
+        return xIndex;
+    }
+
+    /**
+     * Get the Y index for this section within the parent image.
+     *
+     * @return The Y index.
+     */
+    public int getYIndex() {
+        return yIndex;
     }
 
     /**
