@@ -77,7 +77,7 @@ final class DeleteCommand extends BaseCommand implements Listener {
             }
         }, 5L, 20L, () -> this.deleting.contains(id));
 
-        Images.addListenerTask(player, (clicker, image, section, action, hand) -> {
+        Images.addListenerTask(player, (clicker, image, section, action, hand, x, y) -> {
 
             if (!image.getCreator().equals(UNKNOWN_CREATOR) &&
                     Images.getInstance().getConfig().getBoolean("permissions.creator-restricted")) {

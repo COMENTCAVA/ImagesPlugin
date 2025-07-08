@@ -325,7 +325,7 @@ public class CustomImage implements Serializable {
 
                 CustomImageSection section = new CustomImageSection(loc, direction,
                         rotation, image.getSubimage(x * PIXELS_PER_FRAME, y * PIXELS_PER_FRAME,
-                        PIXELS_PER_FRAME, PIXELS_PER_FRAME));
+                        PIXELS_PER_FRAME, PIXELS_PER_FRAME), x, y);
                 this.sections.put(section.getFrameId(), section);
             }
         }

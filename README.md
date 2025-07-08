@@ -5,6 +5,7 @@ TODO basic description of plugin use
 
 * Bullet points
 * Of plugin use cases
+* Listeners now receive pixel coordinates for image clicks
 
 Images is open source! We welcome contributions; the project is licensed using the MIT License.
 
@@ -27,3 +28,4 @@ Links
 -----
 
 * [Visit our plugin page](https://www.spigotmc.org/resources/custom-images.53036/)
+* Sections expose their position indices for advanced interaction handling
